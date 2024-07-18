@@ -44,14 +44,16 @@
 		"node": ">=20"
 	},
 	"scripts": {
-		"check": "tsc --noEmit",
-		"build": "tsc --noEmit && tsup",
+		"check": "tsc",
+		"check:watch": "tsc --watch",
+		"build": "tsup",
+		"build:watch": "tsup --watch",
 		"attw": "attw --pack . --ignore-rules cjs-resolves-to-esm",
 		"test": "vitest",
 		"test:update-data": "bun run scripts/update-test-data.ts",
 		"test:ci": "vitest run --coverage --bail 1",
-		"lint": "prettier --check .",
-		"format": "prettier --write .",
+		"format": "prettier --check .",
+		"format:write": "prettier --write .",
 		"pre-push": "bun install && bun run lint && bun run build && bun run test:ci && bun run attw",
 		"release": "np --no-cleanup"
 	},
