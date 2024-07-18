@@ -29,14 +29,15 @@
 	],
 	"sideEffects": false,
 	"type": "module",
-	"types": "./dist/index.d.ts",
 	"exports": {
 		".": {
-			"types": "./dist/index.d.ts",
-			"import": "./dist/index.js"
+			"import": "./dist/index.mjs",
+			"require": "./dist/index.cjs"
 		},
 		"./package.json": "./package.json"
 	},
+	"main": "./dist/index.cjs",
+	"types": "./dist/index.d.ts",
 	"files": [
 		"dist"
 	],
@@ -46,8 +47,7 @@
 	"scripts": {
 		"check": "tsc",
 		"check:watch": "tsc --watch",
-		"build": "tsup",
-		"build:watch": "tsup --watch",
+		"build": "unbuild",
 		"attw": "attw --pack . --ignore-rules cjs-resolves-to-esm",
 		"test": "vitest",
 		"test:update-data": "bun run scripts/update-test-data.ts",
@@ -74,8 +74,8 @@
 		"np": "^10.0.5",
 		"prettier": "^3.3.3",
 		"prettier-plugin-organize-imports": "^4.0.0",
-		"tsup": "^8.1.0",
 		"typescript": "^5.4.5",
+		"unbuild": "^2.0.0",
 		"vitest": "^1.6.0"
 	}
 }
