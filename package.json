@@ -58,6 +58,7 @@
 		"release": "np --no-cleanup"
 	},
 	"dependencies": {
+		"ofetch": "^1.3.4",
 		"query-string": "^9.0.0",
 		"quick-lru": "^7.0.0",
 		"url-join": "^5.0.0",
