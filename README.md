@@ -1,13 +1,6 @@
-# query-registry
+# `npm-registry`
 
-[![Build status](https://img.shields.io/github/actions/workflow/status/velut/query-registry/main.yml?branch=main)](https://github.com/velut/query-registry/actions?query=workflow%3ACI)
-[![Coverage](https://img.shields.io/codecov/c/gh/velut/query-registry)](https://codecov.io/gh/velut/query-registry)
-[![jsDocs.io](https://img.shields.io/badge/jsDocs.io-reference-blue)](https://www.jsdocs.io/package/query-registry)
-![Language](https://img.shields.io/github/languages/top/velut/query-registry)
-[![npm](https://img.shields.io/npm/v/query-registry)](https://www.npmjs.com/package/query-registry)
-[![License](https://img.shields.io/github/license/velut/query-registry)](https://github.com/velut/query-registry/blob/main/LICENSE)
-
-`query-registry` is an API wrapper for the [npm registry API](https://github.com/npm/registry/blob/master/docs/REGISTRY-API.md).
+`npm-registry` is an API wrapper for the [npm registry API](https://github.com/npm/registry/blob/master/docs/REGISTRY-API.md).
 
 ## Features
 
@@ -154,13 +147,3 @@ cache.clear();
 ```
 
 See the [quick-lru](https://www.npmjs.com/package/quick-lru) package for the cache API.
-
-## License
-
-```
-MIT
-```
-
-Copyright (c) 2024 Edoardo Scibona
-
-See [LICENSE](./LICENSE) file.

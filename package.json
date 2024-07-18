@@ -1,18 +1,18 @@
 {
-	"name": "query-registry",
-	"version": "3.0.1",
+	"name": "@yorganci/npm-registry-api",
+	"version": "0.0.0",
 	"description": "Query the npm registry for packuments, manifests, packages and download counts",
 	"license": "MIT",
 	"author": {
-		"name": "Edoardo Scibona",
-		"url": "https://github.com/velut"
+		"name": "Atahan Yorganci",
+		"url": "https://github.com/atahanyorganci"
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/velut/query-registry.git"
+		"url": "https://github.com/atahanyorganci/npm-registry.git"
 	},
 	"bugs": {
-		"url": "https://github.com/velut/query-registry/issues"
+		"url": "https://github.com/atahanyorganci/npm-registry/issues"
 	},
 	"keywords": [
 		"query",
