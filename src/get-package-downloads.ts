@@ -7,7 +7,7 @@ import { RegistryDownloads } from "./get-registry-downloads";
 import { npmRegistryDownloadsApiUrl } from "./npm-registry";
 
 export const PackageDownloads = RegistryDownloads.extend({
-	/** Package name. */
+	// Package name.
 	package: z.string(),
 });
 

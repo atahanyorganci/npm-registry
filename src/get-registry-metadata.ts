@@ -3,7 +3,7 @@ import { fetchData } from "./fetch-data";
 import { npmRegistryUrl } from "./npm-registry";
 
 export const RegistryMetadata = z.object({
-	/** Database name, usually `registry` */
+	// Database name, usually `registry`
 	db_name: z.string().optional(),
 	doc_count: z.number().optional(),
 	doc_del_count: z.number().optional(),
@@ -28,19 +28,19 @@ export const RegistryMetadata = z.object({
 });
 
 /**
-`RegistryMetadata` describes the metadata describing the registry itself.
-@see {@link https://github.com/npm/registry/blob/master/docs/REGISTRY-API.md#registry}
-@see {@link https://github.com/npm/registry/blob/master/docs/REGISTRY-API.md#get}
-@see {@link https://docs.couchdb.org/en/stable/api/database/common.html}
-*/
+ * `RegistryMetadata` describes the metadata describing the registry itself.
+ * @see {@link https://github.com/npm/registry/blob/master/docs/REGISTRY-API.md#registry}
+ * @see {@link https://github.com/npm/registry/blob/master/docs/REGISTRY-API.md#get}
+ * @see {@link https://docs.couchdb.org/en/stable/api/database/common.html}
+ */
 export type RegistryMetadata = z.infer<typeof RegistryMetadata>;
 
 /**
-`getRegistryMetadata` returns the metadata describing the registry itself.
-
-@param registry - URL of the registry (default: npm registry)
-
-@see {@link RegistryMetadata}
-*/
+ * `getRegistryMetadata` returns the metadata describing the registry itself.
+ *
+ * @param registry - URL of the registry (default: npm registry)
+ *
+ * @see {@link RegistryMetadata}
+ */
 export const getRegistryMetadata = async (registry = npmRegistryUrl): Promise<RegistryMetadata> =>
 	fetchData(RegistryMetadata, registry);

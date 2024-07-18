@@ -5,19 +5,19 @@ import { fetchData } from "./fetch-data";
 import { npmRegistryDownloadsApiUrl } from "./npm-registry";
 
 export const DailyRegistryDownloads = z.object({
-	/** Date of the first day (inclusive) in the format `YYYY-MM-DD`. */
+	// Date of the first day (inclusive) in the format `YYYY-MM-DD`.
 	start: z.string(),
 
-	/** Date of the last day (inclusive) in the format `YYYY-MM-DD`. */
+	// Date of the last day (inclusive) in the format `YYYY-MM-DD`.
 	end: z.string(),
 
-	/** Download counts for each day. */
+	// Download counts for each day.
 	downloads: z.array(
 		z.object({
-			/** Total number of downloads for the day. */
+			// Total number of downloads for the day.
 			downloads: z.number(),
 
-			/** Date of the day in the format `YYYY-MM-DD`. */
+			// Date of the day in the format `YYYY-MM-DD`.
 			day: z.string(),
 		}),
 	),

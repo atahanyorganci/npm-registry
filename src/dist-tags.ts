@@ -1,14 +1,13 @@
 import { z } from "zod";
 
 /**
-`DistTags` describes the mapping of distribution tags to semver version numbers
-(e.g., `{ "latest": "1.0.0" }`).
-*/
+ * `DistTags` describes the mapping of distribution tags to semver version numbers
+ * (e.g., `{ "latest": "1.0.0" }`).
+ */
 export const DistTags = z
 	.object({
-		/** Latest semver version number. */
+		// Latest semver version number.
 		latest: z.string(),
-
 		// The following tags have no special meaning for the npm registry
 		// but they are commonly used by packages.
 		next: z.string().optional(),

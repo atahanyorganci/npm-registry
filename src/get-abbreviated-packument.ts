@@ -7,16 +7,13 @@ import { PackageManifest } from "./get-package-manifest";
 import { npmRegistryUrl } from "./npm-registry";
 
 export const AbbreviatedPackument = z.object({
-	/** Package name. */
+	// Package name.
 	name: z.string(),
-
-	/** Timestamp of when the package was last modified in ISO 8601 format (e.g., `2021-11-23T19:12:24.006Z`). */
+	// Timestamp of when the package was last modified in ISO 8601 format (e.g., `2021-11-23T19:12:24.006Z`).
 	modified: z.string(),
-
-	/** Mapping of distribution tags to semver version numbers e.g., `{ "latest": "1.0.0" }`). */
+	// Mapping of distribution tags to semver version numbers e.g., `{ "latest": "1.0.0" }`).
 	"dist-tags": DistTags,
-
-	/** Mapping of semver version numbers to the required metadata for installing a package version. */
+	// Mapping of semver version numbers to the required metadata for installing a package version.
 	versions: z.record(
 		z.string(),
 		PackageManifest.pick({
@@ -37,30 +34,30 @@ export const AbbreviatedPackument = z.object({
 			os: true,
 			_hasShrinkwrap: true,
 		}).extend({
-			/** True if the package contains an `install` script. */
+			// True if the package contains an `install` script.
 			hasInstallScript: z.boolean().optional(),
 		}),
 	),
 });
 
 /**
-`AbbreviatedPackument` (package document) describes the minimal metadata needed for installing a package.
-@see {@link https://github.com/npm/registry/blob/master/docs/responses/package-metadata.md#abbreviated-metadata-format}
-*/
+ *`AbbreviatedPackument` (package document) describes the minimal metadata needed for installing a package.
+ *@see {@link https://github.com/npm/registry/blob/master/docs/responses/package-metadata.md#abbreviated-metadata-format}
+ */
 export type AbbreviatedPackument = z.infer<typeof AbbreviatedPackument>;
 
 /**
-`getAbbreviatedPackument` returns the abbreviated packument (package document)
-containing only the metadata necessary to install a package.
-
-@remarks
-To get all the metadata (full packument) about a package see {@link getPackument}.
-
-@param name - package name
-@param registry - URL of the registry (default: npm registry)
-
-@see {@link AbbreviatedPackument}
-*/
+ * `getAbbreviatedPackument` returns the abbreviated packument (package document)
+ * containing only the metadata necessary to install a package.
+ *
+ * @remarks
+ * To get all the metadata (full packument) about a package see {@link getPackument}.
+ *
+ * @param name - package name
+ * @param registry - URL of the registry (default: npm registry)
+ *
+ * @see {@link AbbreviatedPackument}
+ */
 export const getAbbreviatedPackument = async (
 	name: string,
 	registry = npmRegistryUrl,
