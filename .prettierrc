@@ -1,5 +1,8 @@
 {
 	"useTabs": true,
 	"printWidth": 100,
-	"experimentalTernaries": true
+	"arrowParens": "avoid",
+	"trailingComma": "all",
+	"organizeImportsSkipDestructiveCodeActions": true,
+	"plugins": ["prettier-plugin-organize-imports"]
 }
