@@ -1,4 +1,3 @@
-import urlJoin from "url-join";
 import { z } from "zod";
 import { fetchData } from "./fetch-data";
 import { npmRegistryUrl } from "./npm-registry";
@@ -33,7 +32,9 @@ export type RegistrySigningKeys = z.infer<typeof RegistrySigningKeys>;
  *
  * @see {@link RegistrySigningKeys}
  */
-export const getRegistrySigningKeys = async (
+export async function getRegistrySigningKeys(
 	registry = npmRegistryUrl,
-): Promise<RegistrySigningKeys> =>
-	fetchData(RegistrySigningKeys, urlJoin(registry, "-/npm/v1/keys"));
+): Promise<RegistrySigningKeys> {
+	const url = new URL("-/npm/v1/keys", registry);
+	return fetchData(RegistrySigningKeys, url.toString());
+}

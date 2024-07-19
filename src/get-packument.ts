@@ -1,4 +1,3 @@
-import urlJoin from "url-join";
 import { z } from "zod";
 import { PackageJson } from "zod-package-json";
 import { assertValidPackageName } from "./assert-valid-package-name";
@@ -77,5 +76,5 @@ export type Packument = z.infer<typeof Packument>;
  */
 export const getPackument = async (name: string, registry = npmRegistryUrl): Promise<Packument> => {
 	assertValidPackageName(name);
-	return fetchData(Packument, urlJoin(registry, name));
+	return fetchData(Packument, new URL(name, registry).toString());
 };

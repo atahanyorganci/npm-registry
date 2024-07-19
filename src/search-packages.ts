@@ -1,5 +1,3 @@
-import queryString from "query-string";
-import urlJoin from "url-join";
 import { z } from "zod";
 import { PackageJson } from "zod-package-json";
 import { fetchData } from "./fetch-data";
@@ -146,8 +144,13 @@ export type SearchResults = z.infer<typeof SearchResults>;
  * @see {@link SearchCriteria}
  * @see {@link SearchResults}
  */
-export const searchPackages = async (
+export async function searchPackages(
 	criteria: SearchCriteria,
 	registry = npmRegistryUrl,
-): Promise<SearchResults> =>
-	fetchData(SearchResults, urlJoin(registry, "-/v1/search", `?${queryString.stringify(criteria)}`));
+): Promise<SearchResults> {
+	const url = new URL("-/v1/search", registry);
+	for (const [key, value] of Object.entries(criteria)) {
+		url.searchParams.set(key, value.toString());
+	}
+	return fetchData(SearchResults, url.toString());
+}

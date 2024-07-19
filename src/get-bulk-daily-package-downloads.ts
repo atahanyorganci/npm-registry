@@ -1,4 +1,3 @@
-import urlJoin from "url-join";
 import { z } from "zod";
 import { assertValidPackageName } from "./assert-valid-package-name";
 import type { DownloadPeriod } from "./download-period";
@@ -25,16 +24,14 @@ for some packages in the given time period.
 
 @see {@link BulkDailyPackageDownloads}
 */
-export const getBulkDailyPackageDownloads = async (
+export async function getBulkDailyPackageDownloads(
 	names: [string, string, ...string[]],
 	period: DownloadPeriod,
 	registry = npmRegistryDownloadsApiUrl,
-): Promise<BulkDailyPackageDownloads> => {
+): Promise<BulkDailyPackageDownloads> {
 	for (const name of names) {
 		assertValidPackageName(name);
 	}
-	return fetchData(
-		BulkDailyPackageDownloads,
-		urlJoin(registry, `/downloads/range/${period}/${names.join(",")}`),
-	);
-};
+	const url = new URL(`/downloads/range/${period}/${names.join(",")}`, registry);
+	return fetchData(BulkDailyPackageDownloads, url.toString());
+}

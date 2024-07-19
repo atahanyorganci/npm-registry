@@ -1,4 +1,3 @@
-import urlJoin from "url-join";
 import { z } from "zod";
 import { PackageJson } from "zod-package-json";
 import { assertValidPackageName } from "./assert-valid-package-name";
@@ -122,11 +121,12 @@ export type PackageManifest = z.infer<typeof PackageManifest>;
  *
  * @see {@link PackageManifest}
  */
-export const getPackageManifest = async (
+export async function getPackageManifest(
 	name: string,
 	versionOrTag = "latest",
 	registry = npmRegistryUrl,
-): Promise<PackageManifest> => {
+): Promise<PackageManifest> {
 	assertValidPackageName(name);
-	return fetchData(PackageManifest, urlJoin(registry, name, versionOrTag));
-};
+	const url = new URL(`${name}/${versionOrTag}`, registry);
+	return fetchData(PackageManifest, url.toString());
+}

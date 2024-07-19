@@ -1,4 +1,3 @@
-import urlJoin from "url-join";
 import { z } from "zod";
 import { assertValidPackageName } from "./assert-valid-package-name";
 import type { DownloadPeriod } from "./download-period";
@@ -23,16 +22,14 @@ export type BulkPackageDownloads = z.infer<typeof BulkPackageDownloads>;
  *
  * @see {@link BulkPackageDownloads}
  */
-export const getBulkPackageDownloads = async (
+export async function getBulkPackageDownloads(
 	names: [string, string, ...string[]],
 	period: DownloadPeriod,
 	registry = npmRegistryDownloadsApiUrl,
-): Promise<BulkPackageDownloads> => {
+): Promise<BulkPackageDownloads> {
 	for (const name of names) {
 		assertValidPackageName(name);
 	}
-	return fetchData(
-		BulkPackageDownloads,
-		urlJoin(registry, `/downloads/point/${period}/${names.join(",")}`),
-	);
-};
+	const url = new URL(`/downloads/point/${period}/${names.join(",")}`, registry);
+	return fetchData(BulkPackageDownloads, url.toString());
+}

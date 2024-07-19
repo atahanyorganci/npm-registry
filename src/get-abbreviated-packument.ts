@@ -1,4 +1,3 @@
-import urlJoin from "url-join";
 import { z } from "zod";
 import { assertValidPackageName } from "./assert-valid-package-name";
 import { DistTags } from "./dist-tags";
@@ -58,12 +57,13 @@ export type AbbreviatedPackument = z.infer<typeof AbbreviatedPackument>;
  *
  * @see {@link AbbreviatedPackument}
  */
-export const getAbbreviatedPackument = async (
+export async function getAbbreviatedPackument(
 	name: string,
 	registry = npmRegistryUrl,
-): Promise<AbbreviatedPackument> => {
+): Promise<AbbreviatedPackument> {
 	assertValidPackageName(name);
-	return fetchData(AbbreviatedPackument, urlJoin(registry, name), {
+	const url = new URL(name, registry);
+	return fetchData(AbbreviatedPackument, url.toString(), {
 		Accept: "application/vnd.npm.install-v1+json",
 	});
-};
+}

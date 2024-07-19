@@ -1,7 +1,6 @@
-import urlJoin from "url-join";
 import { z } from "zod";
 import { assertValidPackageName } from "./assert-valid-package-name";
-import { DownloadPeriod } from "./download-period";
+import type { DownloadPeriod } from "./download-period";
 import { fetchData } from "./fetch-data";
 import { RegistryDownloads } from "./get-registry-downloads";
 import { npmRegistryDownloadsApiUrl } from "./npm-registry";
@@ -26,11 +25,12 @@ export type PackageDownloads = z.infer<typeof PackageDownloads>;
 
 @see {@link PackageDownloads}
 */
-export const getPackageDownloads = async (
+export async function getPackageDownloads(
 	name: string,
 	period: DownloadPeriod,
 	registry = npmRegistryDownloadsApiUrl,
-): Promise<PackageDownloads> => {
+): Promise<PackageDownloads> {
 	assertValidPackageName(name);
-	return fetchData(PackageDownloads, urlJoin(registry, `/downloads/point/${period}/${name}`));
-};
+	const url = new URL(`/downloads/point/${period}/${name}`, registry);
+	return fetchData(PackageDownloads, url.toString());
+}

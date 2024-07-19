@@ -1,6 +1,5 @@
-import urlJoin from "url-join";
 import { z } from "zod";
-import { DownloadPeriod } from "./download-period";
+import type { DownloadPeriod } from "./download-period";
 import { fetchData } from "./fetch-data";
 import { npmRegistryDownloadsApiUrl } from "./npm-registry";
 
@@ -39,8 +38,10 @@ export type DailyRegistryDownloads = z.infer<typeof DailyRegistryDownloads>;
  *
  * @see {@link DailyRegistryDownloads}
  */
-export const getDailyRegistryDownloads = async (
+export async function getDailyRegistryDownloads(
 	period: DownloadPeriod,
 	registry = npmRegistryDownloadsApiUrl,
-): Promise<DailyRegistryDownloads> =>
-	fetchData(DailyRegistryDownloads, urlJoin(registry, `/downloads/range/${period}`));
+): Promise<DailyRegistryDownloads> {
+	const url = new URL(`/downloads/range/${period}`, registry);
+	return await fetchData(DailyRegistryDownloads, url.toString());
+}
