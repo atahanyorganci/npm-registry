@@ -24,21 +24,21 @@ export const DailyRegistryDownloads = z.object({
 });
 
 /**
-`DailyRegistryDownloads` describes the total number of downloads for each day
-for all packages in the registry in a given time period.
-@see {@link https://github.com/npm/registry/blob/master/docs/download-counts.md#ranges}
-*/
+ * `DailyRegistryDownloads` describes the total number of downloads for each day
+ * for all packages in the registry in a given time period.
+ * @see {@link https://github.com/npm/registry/blob/master/docs/download-counts.md#ranges}
+ */
 export type DailyRegistryDownloads = z.infer<typeof DailyRegistryDownloads>;
 
 /**
-`getDailyRegistryDownloads` returns the total number of downloads for each day
-for all packages in the registry in the given time period.
-
-@param period - {@link DownloadPeriod | time period} in which downloads happened; the npm registry limits data to the last 18 months
-@param registry - URL of the registry downloads API (default: npm registry downloads API)
-
-@see {@link DailyRegistryDownloads}
-*/
+ * `getDailyRegistryDownloads` returns the total number of downloads for each day
+ * for all packages in the registry in the given time period.
+ *
+ * @param period - {@link DownloadPeriod | time period} in which downloads happened; the npm registry limits data to the last 18 months
+ * @param registry - URL of the registry downloads API (default: npm registry downloads API)
+ *
+ * @see {@link DailyRegistryDownloads}
+ */
 export const getDailyRegistryDownloads = async (
 	period: DownloadPeriod,
 	registry = npmRegistryDownloadsApiUrl,

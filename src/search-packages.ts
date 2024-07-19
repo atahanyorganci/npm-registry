@@ -34,9 +34,9 @@ export const SearchCriteria = z.object({
 });
 
 /**
-`SearchCriteria` describes the available search criteria for searching packages.
-@see {@link https://github.com/npm/registry/blob/master/docs/REGISTRY-API.md#get-v1search}
-*/
+ * `SearchCriteria` describes the available search criteria for searching packages.
+ * @see {@link https://github.com/npm/registry/blob/master/docs/REGISTRY-API.md#get-v1search}
+ */
 export type SearchCriteria = z.infer<typeof SearchCriteria>;
 
 const SearchResult = z.object({
