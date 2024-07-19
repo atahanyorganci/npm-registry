@@ -1,25 +1,21 @@
 {
-	"cSpell.ignoreWords": [
-		"arethetypeswrong",
-		"attw",
-		"codecov",
-		"commitlint",
-		"ddthh",
-		"edoardo",
-		"fflate",
-		"keyid",
-		"keytype",
-		"nistp",
-		"npmjs",
-		"packument",
-		"packuments",
-		"pathnames",
-		"picocolors",
-		"pollyjs",
-		"scibona",
-		"tomdyqin",
-		"tsup",
-		"unfetch",
-		"vitest"
-	]
+	"editor.formatOnSave": true,
+	"[javascript]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"[javascriptreact]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"[json]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"[jsonc]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"[typescript]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"[typescriptreact]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	}
 }
