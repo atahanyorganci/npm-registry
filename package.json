@@ -34,6 +34,11 @@
 			"import": "./dist/index.mjs",
 			"require": "./dist/index.cjs"
 		},
+		"./cache": {
+			"import": "./dist/cache.mjs",
+			"require": "./dist/cache.cjs",
+			"types": "./dist/cache.d.ts"
+		},
 		"./package.json": "./package.json"
 	},
 	"main": "./dist/index.cjs",
