@@ -17,4 +17,4 @@ release: format check test build
     bun run release
 
 update-test-data:
-    bun run scripts/update-test-data.ts
+    REMOTE=true PERSIST=true bun run test
