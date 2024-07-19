@@ -18,16 +18,18 @@ test("fetchData", async () => {
 		cache,
 	});
 	expect(cache.storage.getKeys()).resolves.toHaveLength(0);
-	expect(await client.fetch(z.object({ foo: z.string() }), "https://example.com"))
-		.toMatchInlineSnapshot(`
+	expect(
+		await client.fetch(z.object({ foo: z.string() }), "https://example.com"),
+	).toMatchInlineSnapshot(`
 		{
 		  "foo": "bar",
 		}
 	`);
 	expect(ofetch).toBeCalledTimes(1);
 	expect(cache.storage.getKeys()).resolves.toHaveLength(1);
-	expect(await client.fetch(z.object({ foo: z.string() }), "https://example.com"))
-		.toMatchInlineSnapshot(`
+	expect(
+		await client.fetch(z.object({ foo: z.string() }), "https://example.com"),
+	).toMatchInlineSnapshot(`
 		{
 		  "foo": "bar",
 		}

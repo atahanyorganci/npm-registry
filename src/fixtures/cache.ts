@@ -1,12 +1,14 @@
-import { compressSync, decompressSync, strFromU8, strToU8 } from "fflate";
 import fs from "node:fs/promises";
+import { compressSync, decompressSync, strFromU8, strToU8 } from "fflate";
 import { z } from "zod";
 import type { Cache } from "..";
 
 const Literal = z.union([
 	// Truncate strings and numbers to save space in the test DB
 	// but preserve the `type` property literal values.
-	z.string().transform(val => (["module", "commonjs"].includes(val) ? val : "")),
+	z
+		.string()
+		.transform(val => (["module", "commonjs"].includes(val) ? val : "")),
 	z.number().transform(() => 0),
 	z.boolean(),
 	z.null(),
@@ -28,6 +30,7 @@ export async function populateCache(name: string, cache: Cache) {
 		return;
 	}
 	for (const [key, value] of data) {
+		// biome-ignore lint/suspicious/noExplicitAny: this is safe because of `JsonStrip`
 		cache.storage.setItem<any>(key, value);
 	}
 }

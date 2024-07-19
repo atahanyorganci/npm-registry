@@ -22,11 +22,15 @@ const client = new Client({
 });
 
 beforeEach(async ctx => {
-	await populateCache(ctx.task.name, client.cache!);
+	if (client.cache) {
+		await populateCache(ctx.task.name, client.cache);
+	}
 });
 
 afterEach(async ctx => {
-	await persistCache(ctx.task.name, client.cache!);
+	if (client.cache) {
+		await persistCache(ctx.task.name, client.cache);
+	}
 });
 
 const pkgs = [

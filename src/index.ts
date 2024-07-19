@@ -132,10 +132,10 @@ import { RegistryDownloads } from "./get-registry-downloads";
 import { RegistryMetadata } from "./get-registry-metadata";
 import { RegistrySigningKeys } from "./get-registry-signing-keys";
 import { NPM_REGISTRY_API_URL, NPM_REGISTRY_DOWNLOADS_API_URL } from "./npm-registry";
-import { SearchCriteria, SearchResults } from "./search-packages";
+import { type SearchCriteria, SearchResults } from "./search-packages";
 
 export interface Cache {
-	serialize: (object: any) => string;
+	serialize: (object: unknown) => string;
 	storage: Storage;
 }
 
