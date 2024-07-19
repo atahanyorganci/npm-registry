@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { fetchData } from "./fetch-data";
-import { npmRegistryUrl } from "./npm-registry";
+import { NPM_REGISTRY_API_URL } from "./npm-registry";
 
 export const RegistrySigningKeys = z.object({
 	keys: z.array(
@@ -33,7 +33,7 @@ export type RegistrySigningKeys = z.infer<typeof RegistrySigningKeys>;
  * @see {@link RegistrySigningKeys}
  */
 export async function getRegistrySigningKeys(
-	registry = npmRegistryUrl,
+	registry = NPM_REGISTRY_API_URL,
 ): Promise<RegistrySigningKeys> {
 	const url = new URL("-/npm/v1/keys", registry);
 	return fetchData(RegistrySigningKeys, url.toString());

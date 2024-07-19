@@ -3,7 +3,7 @@ import { assertValidPackageName } from "./assert-valid-package-name";
 import type { DownloadPeriod } from "./download-period";
 import { fetchData } from "./fetch-data";
 import { PackageDownloads } from "./get-package-downloads";
-import { npmRegistryDownloadsApiUrl } from "./npm-registry";
+import { NPM_REGISTRY_DOWNLOADS_API_URL } from "./npm-registry";
 
 export const BulkPackageDownloads = z.record(z.union([z.null(), PackageDownloads]));
 
@@ -25,7 +25,7 @@ export type BulkPackageDownloads = z.infer<typeof BulkPackageDownloads>;
 export async function getBulkPackageDownloads(
 	names: [string, string, ...string[]],
 	period: DownloadPeriod,
-	registry = npmRegistryDownloadsApiUrl,
+	registry = NPM_REGISTRY_DOWNLOADS_API_URL,
 ): Promise<BulkPackageDownloads> {
 	for (const name of names) {
 		assertValidPackageName(name);

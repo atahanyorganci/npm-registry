@@ -1,7 +1,7 @@
 import { z } from "zod";
 import type { DownloadPeriod } from "./download-period";
 import { fetchData } from "./fetch-data";
-import { npmRegistryDownloadsApiUrl } from "./npm-registry";
+import { NPM_REGISTRY_DOWNLOADS_API_URL } from "./npm-registry";
 
 export const RegistryDownloads = z.object({
 	// Total number of downloads.
@@ -30,7 +30,7 @@ export type RegistryDownloads = z.infer<typeof RegistryDownloads>;
  */
 export async function getRegistryDownloads(
 	period: DownloadPeriod,
-	registry = npmRegistryDownloadsApiUrl,
+	registry = NPM_REGISTRY_DOWNLOADS_API_URL,
 ): Promise<RegistryDownloads> {
 	const url = new URL(`/downloads/point/${period}`, registry);
 	return fetchData(RegistryDownloads, url.toString());

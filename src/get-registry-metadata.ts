@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { fetchData } from "./fetch-data";
-import { npmRegistryUrl } from "./npm-registry";
+import { NPM_REGISTRY_API_URL } from "./npm-registry";
 
 export const RegistryMetadata = z.object({
 	// Database name, usually `registry`
@@ -42,6 +42,8 @@ export type RegistryMetadata = z.infer<typeof RegistryMetadata>;
  *
  * @see {@link RegistryMetadata}
  */
-export async function getRegistryMetadata(registry = npmRegistryUrl): Promise<RegistryMetadata> {
+export async function getRegistryMetadata(
+	registry = NPM_REGISTRY_API_URL,
+): Promise<RegistryMetadata> {
 	return fetchData(RegistryMetadata, registry);
 }

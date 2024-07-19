@@ -1,7 +1,7 @@
 import { z } from "zod";
 import type { DownloadPeriod } from "./download-period";
 import { fetchData } from "./fetch-data";
-import { npmRegistryDownloadsApiUrl } from "./npm-registry";
+import { NPM_REGISTRY_DOWNLOADS_API_URL } from "./npm-registry";
 
 export const DailyRegistryDownloads = z.object({
 	// Date of the first day (inclusive) in the format `YYYY-MM-DD`.
@@ -40,7 +40,7 @@ export type DailyRegistryDownloads = z.infer<typeof DailyRegistryDownloads>;
  */
 export async function getDailyRegistryDownloads(
 	period: DownloadPeriod,
-	registry = npmRegistryDownloadsApiUrl,
+	registry = NPM_REGISTRY_DOWNLOADS_API_URL,
 ): Promise<DailyRegistryDownloads> {
 	const url = new URL(`/downloads/range/${period}`, registry);
 	return await fetchData(DailyRegistryDownloads, url.toString());

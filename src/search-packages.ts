@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { PackageJson } from "zod-package-json";
 import { fetchData } from "./fetch-data";
-import { npmRegistryUrl } from "./npm-registry";
+import { NPM_REGISTRY_API_URL } from "./npm-registry";
 
 export const SearchCriteria = z.object({
 	/**
@@ -146,7 +146,7 @@ export type SearchResults = z.infer<typeof SearchResults>;
  */
 export async function searchPackages(
 	criteria: SearchCriteria,
-	registry = npmRegistryUrl,
+	registry = NPM_REGISTRY_API_URL,
 ): Promise<SearchResults> {
 	const url = new URL("-/v1/search", registry);
 	for (const [key, value] of Object.entries(criteria)) {

@@ -4,7 +4,7 @@ import { assertValidPackageName } from "./assert-valid-package-name";
 import { DistTags } from "./dist-tags";
 import { fetchData } from "./fetch-data";
 import { PackageManifest } from "./get-package-manifest";
-import { npmRegistryUrl } from "./npm-registry";
+import { NPM_REGISTRY_API_URL } from "./npm-registry";
 
 const Time = z
 	.object({
@@ -74,7 +74,10 @@ export type Packument = z.infer<typeof Packument>;
  *
  * @see {@link Packument}
  */
-export const getPackument = async (name: string, registry = npmRegistryUrl): Promise<Packument> => {
+export const getPackument = async (
+	name: string,
+	registry = NPM_REGISTRY_API_URL,
+): Promise<Packument> => {
 	assertValidPackageName(name);
 	return fetchData(Packument, new URL(name, registry).toString());
 };

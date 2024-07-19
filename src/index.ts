@@ -119,5 +119,5 @@ export { Packument, getPackument } from "./get-packument";
 export { RegistryDownloads, getRegistryDownloads } from "./get-registry-downloads";
 export { RegistryMetadata, getRegistryMetadata } from "./get-registry-metadata";
 export { RegistrySigningKeys, getRegistrySigningKeys } from "./get-registry-signing-keys";
-export { npmRegistryDownloadsApiUrl, npmRegistryUrl } from "./npm-registry";
+export { NPM_REGISTRY_API_URL, NPM_REGISTRY_DOWNLOADS_API_URL } from "./npm-registry";
 export { SearchCriteria, SearchResults, searchPackages } from "./search-packages";

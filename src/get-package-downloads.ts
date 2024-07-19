@@ -3,7 +3,7 @@ import { assertValidPackageName } from "./assert-valid-package-name";
 import type { DownloadPeriod } from "./download-period";
 import { fetchData } from "./fetch-data";
 import { RegistryDownloads } from "./get-registry-downloads";
-import { npmRegistryDownloadsApiUrl } from "./npm-registry";
+import { NPM_REGISTRY_DOWNLOADS_API_URL } from "./npm-registry";
 
 export const PackageDownloads = RegistryDownloads.extend({
 	// Package name.
@@ -28,7 +28,7 @@ export type PackageDownloads = z.infer<typeof PackageDownloads>;
 export async function getPackageDownloads(
 	name: string,
 	period: DownloadPeriod,
-	registry = npmRegistryDownloadsApiUrl,
+	registry = NPM_REGISTRY_DOWNLOADS_API_URL,
 ): Promise<PackageDownloads> {
 	assertValidPackageName(name);
 	const url = new URL(`/downloads/point/${period}/${name}`, registry);

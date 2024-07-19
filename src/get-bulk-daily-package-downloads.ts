@@ -3,7 +3,7 @@ import { assertValidPackageName } from "./assert-valid-package-name";
 import type { DownloadPeriod } from "./download-period";
 import { fetchData } from "./fetch-data";
 import { DailyPackageDownloads } from "./get-daily-package-downloads";
-import { npmRegistryDownloadsApiUrl } from "./npm-registry";
+import { NPM_REGISTRY_DOWNLOADS_API_URL } from "./npm-registry";
 
 export const BulkDailyPackageDownloads = z.record(z.union([z.null(), DailyPackageDownloads]));
 
@@ -27,7 +27,7 @@ for some packages in the given time period.
 export async function getBulkDailyPackageDownloads(
 	names: [string, string, ...string[]],
 	period: DownloadPeriod,
-	registry = npmRegistryDownloadsApiUrl,
+	registry = NPM_REGISTRY_DOWNLOADS_API_URL,
 ): Promise<BulkDailyPackageDownloads> {
 	for (const name of names) {
 		assertValidPackageName(name);

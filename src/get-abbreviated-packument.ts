@@ -3,7 +3,7 @@ import { assertValidPackageName } from "./assert-valid-package-name";
 import { DistTags } from "./dist-tags";
 import { fetchData } from "./fetch-data";
 import { PackageManifest } from "./get-package-manifest";
-import { npmRegistryUrl } from "./npm-registry";
+import { NPM_REGISTRY_API_URL } from "./npm-registry";
 
 export const AbbreviatedPackument = z.object({
 	// Package name.
@@ -59,7 +59,7 @@ export type AbbreviatedPackument = z.infer<typeof AbbreviatedPackument>;
  */
 export async function getAbbreviatedPackument(
 	name: string,
-	registry = npmRegistryUrl,
+	registry = NPM_REGISTRY_API_URL,
 ): Promise<AbbreviatedPackument> {
 	assertValidPackageName(name);
 	const url = new URL(name, registry);

@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { assertValidPackageName } from "./assert-valid-package-name";
 import { fetchData } from "./fetch-data";
-import { npmRegistryDownloadsApiUrl } from "./npm-registry";
+import { NPM_REGISTRY_DOWNLOADS_API_URL } from "./npm-registry";
 
 export const PackageVersionsDownloads = z.object({
 	// Package name.
@@ -28,7 +28,7 @@ export type PackageVersionsDownloads = z.infer<typeof PackageVersionsDownloads>;
  */
 export async function getPackageVersionsDownloads(
 	name: string,
-	registry = npmRegistryDownloadsApiUrl,
+	registry = NPM_REGISTRY_DOWNLOADS_API_URL,
 ): Promise<PackageVersionsDownloads> {
 	assertValidPackageName(name);
 	const url = new URL(`/versions/${encodeURIComponent(name)}/last-week`, registry);
