@@ -47,14 +47,13 @@
 	"scripts": {
 		"check": "tsc",
 		"check:watch": "tsc --watch",
-		"build": "unbuild",
-		"attw": "attw --pack . --ignore-rules cjs-resolves-to-esm",
-		"test": "vitest",
-		"test:update-data": "bun run scripts/update-test-data.ts",
+		"test": "vitest run",
+		"test:watch": "vitest watch",
 		"test:ci": "vitest run --coverage --bail 1",
 		"format": "prettier --check .",
 		"format:write": "prettier --write .",
-		"pre-push": "bun install && bun run lint && bun run build && bun run test:ci && bun run attw",
+		"attw": "attw --pack .",
+		"build": "unbuild",
 		"release": "np --no-cleanup"
 	},
 	"dependencies": {
