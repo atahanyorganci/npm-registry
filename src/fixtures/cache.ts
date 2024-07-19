@@ -21,7 +21,7 @@ export async function populateCache(name: string, cache: Cache) {
 	if (process.env.REMOTE === "true") {
 		return;
 	}
-	const filename = `./data/test/${name}.json.gz`;
+	const filename = `./test/${name}.json.gz`;
 	const buf = await fs.readFile(filename);
 	const data = JSON.parse(strFromU8(decompressSync(buf))) as [string, unknown][];
 	if (data.length === 0) {
@@ -34,7 +34,7 @@ export async function populateCache(name: string, cache: Cache) {
 
 export async function persistCache(name: string, cache: Cache) {
 	if (process.env.PERSIST === "true") {
-		const filename = `./data/test/${name}.json.gz`;
+		const filename = `./test/${name}.json.gz`;
 		const keys = await cache.storage.getKeys();
 		const entries = await Promise.all(
 			keys.toSorted().map(async key => {
