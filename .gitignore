@@ -1,5 +1,19 @@
+# Logs
 *.log
-.DS_Store
-node_modules
-dist
+
+# Coverage directory used by vitest
 coverage
+
+# Dependency directories
+node_modules/
+
+# TypeScript cache
+*.tsbuildinfo
+
+# dotenv environment variable files
+.env
+.env.local
+.env.*.local
+
+# unbuild output
+dist
