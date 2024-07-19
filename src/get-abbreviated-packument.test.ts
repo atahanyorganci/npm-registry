@@ -1,18 +1,12 @@
-import { afterAll, beforeAll, expect, test } from "vitest";
-import { testData } from "../utils/test-data";
-import { getAbbreviatedPackument } from "./get-abbreviated-packument";
+import { expect, test } from "vitest";
+import { Client } from ".";
+import { createCache } from "./cache";
 
-const { loadIntoCache, updateFromCache } = testData("get-abbreviated-packument");
-
-beforeAll(async () => {
-	await loadIntoCache();
+const client = new Client({
+	cache: createCache(),
 });
 
-afterAll(async () => {
-	await updateFromCache();
-});
-
-test("getAbbreviatedPackument", async () => {
+test("get-abbreviated-packument", async () => {
 	for (const pkg of [
 		"@types/node",
 		"axios",
@@ -40,6 +34,6 @@ test("getAbbreviatedPackument", async () => {
 		"webpack",
 		"zod",
 	]) {
-		await expect(getAbbreviatedPackument(pkg)).resolves.toBeDefined();
+		await expect(client.getAbbreviatedPackument(pkg)).resolves.toBeDefined();
 	}
 });

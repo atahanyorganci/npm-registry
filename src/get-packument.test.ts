@@ -1,18 +1,12 @@
-import { afterAll, beforeAll, expect, test } from "vitest";
-import { testData } from "../utils/test-data";
-import { getPackument } from "./get-packument";
+import { expect, test } from "vitest";
+import { Client } from ".";
+import { createCache } from "./cache";
 
-const { loadIntoCache, updateFromCache } = testData("get-packument");
-
-beforeAll(async () => {
-	await loadIntoCache();
+const client = new Client({
+	cache: createCache(),
 });
 
-afterAll(async () => {
-	await updateFromCache();
-});
-
-test("getPackument", async () => {
+test("get-packument", async () => {
 	for (const pkg of [
 		"@types/node",
 		"axios",
@@ -41,6 +35,6 @@ test("getPackument", async () => {
 		"zod-package-json",
 		"zod",
 	]) {
-		await expect(getPackument(pkg)).resolves.toBeDefined();
+		await expect(client.getPackument(pkg)).resolves.toBeDefined();
 	}
 });

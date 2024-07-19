@@ -1,27 +1,29 @@
-import { afterAll, beforeAll, expect, test } from "vitest";
-import { testData } from "../utils/test-data";
-import { getBulkPackageDownloads } from "./get-bulk-package-downloads";
+import { expect, test } from "vitest";
+import { Client } from ".";
+import { createCache } from "./cache";
 
-const { loadIntoCache, updateFromCache } = testData("get-bulk-package-downloads");
-
-beforeAll(async () => {
-	await loadIntoCache();
+const client = new Client({
+	cache: createCache(),
 });
 
-afterAll(async () => {
-	await updateFromCache();
-});
-
-test("getBulkPackageDownloads", async () => {
-	await expect(getBulkPackageDownloads(["npm", "react"], "last-week")).resolves.toBeDefined();
-	await expect(getBulkPackageDownloads(["npm", "react"], "last-month")).resolves.toBeDefined();
-	await expect(getBulkPackageDownloads(["npm", "react"], "last-year")).resolves.toBeDefined();
+test("get-bulk-package-downloads", async () => {
+	await expect(
+		client.getBulkPackageDownloads(["npm", "react"], "last-week"),
+	).resolves.toBeDefined();
+	await expect(
+		client.getBulkPackageDownloads(["npm", "react"], "last-month"),
+	).resolves.toBeDefined();
+	await expect(
+		client.getBulkPackageDownloads(["npm", "react"], "last-year"),
+	).resolves.toBeDefined();
 
 	// Non existing package.
 	await expect(
-		getBulkPackageDownloads(["npm", "radial-guts-fool-bullseye-hypnotist"], "last-week"),
+		client.getBulkPackageDownloads(["npm", "radial-guts-fool-bullseye-hypnotist"], "last-week"),
 	).resolves.toBeDefined();
 
 	// Scoped package names are not supported by the npm registry.
-	await expect(getBulkPackageDownloads(["npm", "@types/node"], "last-week")).rejects.toThrow();
+	await expect(
+		client.getBulkPackageDownloads(["npm", "@types/node"], "last-week"),
+	).rejects.toThrow();
 });

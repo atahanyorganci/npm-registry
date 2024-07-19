@@ -1,9 +1,6 @@
 import { z } from "zod";
-import { assertValidPackageName } from "./assert-valid-package-name";
 import { DistTags } from "./dist-tags";
-import { fetchData } from "./fetch-data";
 import { PackageManifest } from "./get-package-manifest";
-import { NPM_REGISTRY_API_URL } from "./npm-registry";
 
 export const AbbreviatedPackument = z.object({
 	// Package name.
@@ -44,26 +41,3 @@ export const AbbreviatedPackument = z.object({
  *@see {@link https://github.com/npm/registry/blob/master/docs/responses/package-metadata.md#abbreviated-metadata-format}
  */
 export type AbbreviatedPackument = z.infer<typeof AbbreviatedPackument>;
-
-/**
- * `getAbbreviatedPackument` returns the abbreviated packument (package document)
- * containing only the metadata necessary to install a package.
- *
- * @remarks
- * To get all the metadata (full packument) about a package see {@link getPackument}.
- *
- * @param name - package name
- * @param registry - URL of the registry (default: npm registry)
- *
- * @see {@link AbbreviatedPackument}
- */
-export async function getAbbreviatedPackument(
-	name: string,
-	registry = NPM_REGISTRY_API_URL,
-): Promise<AbbreviatedPackument> {
-	assertValidPackageName(name);
-	const url = new URL(name, registry);
-	return fetchData(AbbreviatedPackument, url.toString(), {
-		Accept: "application/vnd.npm.install-v1+json",
-	});
-}

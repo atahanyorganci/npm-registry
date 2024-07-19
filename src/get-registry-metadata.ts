@@ -1,6 +1,4 @@
 import { z } from "zod";
-import { fetchData } from "./fetch-data";
-import { NPM_REGISTRY_API_URL } from "./npm-registry";
 
 export const RegistryMetadata = z.object({
 	// Database name, usually `registry`
@@ -34,16 +32,3 @@ export const RegistryMetadata = z.object({
  * @see {@link https://docs.couchdb.org/en/stable/api/database/common.html}
  */
 export type RegistryMetadata = z.infer<typeof RegistryMetadata>;
-
-/**
- * `getRegistryMetadata` returns the metadata describing the registry itself.
- *
- * @param registry - URL of the registry (default: npm registry)
- *
- * @see {@link RegistryMetadata}
- */
-export async function getRegistryMetadata(
-	registry = NPM_REGISTRY_API_URL,
-): Promise<RegistryMetadata> {
-	return fetchData(RegistryMetadata, registry);
-}

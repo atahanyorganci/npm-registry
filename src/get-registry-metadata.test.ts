@@ -1,17 +1,11 @@
-import { afterAll, beforeAll, expect, test } from "vitest";
-import { testData } from "../utils/test-data";
-import { getRegistryMetadata } from "./get-registry-metadata";
+import { expect, test } from "vitest";
+import { Client } from ".";
+import { createCache } from "./cache";
 
-const { loadIntoCache, updateFromCache } = testData("get-registry-metadata");
-
-beforeAll(async () => {
-	await loadIntoCache();
+const client = new Client({
+	cache: createCache(),
 });
 
-afterAll(async () => {
-	await updateFromCache();
-});
-
-test("getRegistryMetadata", async () => {
-	await expect(getRegistryMetadata()).resolves.toBeDefined();
+test("get-registry-metadata", async () => {
+	await expect(client.getRegistryMetadata()).resolves.toBeDefined();
 });

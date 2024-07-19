@@ -1,10 +1,7 @@
 import { z } from "zod";
 import { PackageJson } from "zod-package-json";
-import { assertValidPackageName } from "./assert-valid-package-name";
 import { DistTags } from "./dist-tags";
-import { fetchData } from "./fetch-data";
 import { PackageManifest } from "./get-package-manifest";
-import { NPM_REGISTRY_API_URL } from "./npm-registry";
 
 const Time = z
 	.object({
@@ -60,24 +57,3 @@ export const Packument = PackageJson.pick({
  * @see {@link https://github.com/npm/registry/blob/master/docs/REGISTRY-API.md#package}
  */
 export type Packument = z.infer<typeof Packument>;
-
-/**
- * `getPackument` returns the full packument (package document)
- * containing all the metadata available about a package.
- *
- * @remarks
- * To get only the metadata needed to install a package (abbreviated packument)
- * see {@link getAbbreviatedPackument}.
- *
- * @param name - package name
- * @param registry - URL of the registry (default: npm registry)
- *
- * @see {@link Packument}
- */
-export const getPackument = async (
-	name: string,
-	registry = NPM_REGISTRY_API_URL,
-): Promise<Packument> => {
-	assertValidPackageName(name);
-	return fetchData(Packument, new URL(name, registry).toString());
-};

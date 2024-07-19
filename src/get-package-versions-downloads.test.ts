@@ -1,18 +1,12 @@
-import { afterAll, beforeAll, expect, test } from "vitest";
-import { testData } from "../utils/test-data";
-import { getPackageVersionsDownloads } from "./get-package-versions-downloads";
+import { expect, test } from "vitest";
+import { Client } from ".";
+import { createCache } from "./cache";
 
-const { loadIntoCache, updateFromCache } = testData("get-package-versions-downloads");
-
-beforeAll(async () => {
-	await loadIntoCache();
+const client = new Client({
+	cache: createCache(),
 });
 
-afterAll(async () => {
-	await updateFromCache();
-});
-
-test("getPackageVersionsDownloads", async () => {
-	await expect(getPackageVersionsDownloads("react")).resolves.toBeDefined();
-	await expect(getPackageVersionsDownloads("@types/node")).resolves.toBeDefined();
+test("get-package-versions-downloads", async () => {
+	await expect(client.getPackageVersionsDownloads("react")).resolves.toBeDefined();
+	await expect(client.getPackageVersionsDownloads("@types/node")).resolves.toBeDefined();
 });

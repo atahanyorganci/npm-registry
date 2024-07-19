@@ -1,17 +1,11 @@
-import { afterAll, beforeAll, expect, test } from "vitest";
-import { testData } from "../utils/test-data";
-import { getRegistrySigningKeys } from "./get-registry-signing-keys";
+import { expect, test } from "vitest";
+import { Client } from ".";
+import { createCache } from "./cache";
 
-const { loadIntoCache, updateFromCache } = testData("get-registry-signing-keys");
-
-beforeAll(async () => {
-	await loadIntoCache();
+const client = new Client({
+	cache: createCache(),
 });
 
-afterAll(async () => {
-	await updateFromCache();
-});
-
-test("getRegistrySigningKeys", async () => {
-	await expect(getRegistrySigningKeys()).resolves.toBeDefined();
+test("get-registry-signing-keys", async () => {
+	await expect(client.getRegistrySigningKeys()).resolves.toBeDefined();
 });

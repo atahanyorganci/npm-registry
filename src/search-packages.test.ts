@@ -1,22 +1,16 @@
-import { afterAll, beforeAll, expect, test } from "vitest";
-import { testData } from "../utils/test-data";
-import { searchPackages } from "./search-packages";
+import { expect, test } from "vitest";
+import { Client } from ".";
+import { createCache } from "./cache";
 
-const { loadIntoCache, updateFromCache } = testData("search-packages");
-
-beforeAll(async () => {
-	await loadIntoCache();
+const client = new Client({
+	cache: createCache(),
 });
 
-afterAll(async () => {
-	await updateFromCache();
-});
-
-test("searchPackages", async () => {
-	await expect(searchPackages({})).resolves.toBeDefined();
-	await expect(searchPackages({ text: "react" })).resolves.toBeDefined();
-	await expect(searchPackages({ text: "react", size: 0 })).resolves.toBeDefined();
-	await expect(searchPackages({ text: "react", size: 1 })).resolves.toBeDefined();
-	await expect(searchPackages({ text: "npm" })).resolves.toBeDefined();
-	await expect(searchPackages({ text: "lodash" })).resolves.toBeDefined();
+test("search-packages", async () => {
+	await expect(client.searchPackages({})).resolves.toBeDefined();
+	await expect(client.searchPackages({ text: "react" })).resolves.toBeDefined();
+	await expect(client.searchPackages({ text: "react", size: 0 })).resolves.toBeDefined();
+	await expect(client.searchPackages({ text: "react", size: 1 })).resolves.toBeDefined();
+	await expect(client.searchPackages({ text: "npm" })).resolves.toBeDefined();
+	await expect(client.searchPackages({ text: "lodash" })).resolves.toBeDefined();
 });

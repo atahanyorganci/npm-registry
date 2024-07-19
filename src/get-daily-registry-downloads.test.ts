@@ -1,20 +1,14 @@
-import { afterAll, beforeAll, expect, test } from "vitest";
-import { testData } from "../utils/test-data";
-import { getDailyRegistryDownloads } from "./get-daily-registry-downloads";
+import { expect, test } from "vitest";
+import { Client } from ".";
+import { createCache } from "./cache";
 
-const { loadIntoCache, updateFromCache } = testData("get-daily-registry-downloads");
-
-beforeAll(async () => {
-	await loadIntoCache();
+const client = new Client({
+	cache: createCache(),
 });
 
-afterAll(async () => {
-	await updateFromCache();
-});
-
-test("getDailyRegistryDownloads", async () => {
-	await expect(getDailyRegistryDownloads("last-day")).resolves.toBeDefined();
-	await expect(getDailyRegistryDownloads("last-week")).resolves.toBeDefined();
-	await expect(getDailyRegistryDownloads("last-month")).resolves.toBeDefined();
-	await expect(getDailyRegistryDownloads("last-year")).resolves.toBeDefined();
+test("get-daily-registry-downloads", async () => {
+	await expect(client.getDailyRegistryDownloads("last-day")).resolves.toBeDefined();
+	await expect(client.getDailyRegistryDownloads("last-week")).resolves.toBeDefined();
+	await expect(client.getDailyRegistryDownloads("last-month")).resolves.toBeDefined();
+	await expect(client.getDailyRegistryDownloads("last-year")).resolves.toBeDefined();
 });

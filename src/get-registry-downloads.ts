@@ -1,7 +1,4 @@
 import { z } from "zod";
-import type { DownloadPeriod } from "./download-period";
-import { fetchData } from "./fetch-data";
-import { NPM_REGISTRY_DOWNLOADS_API_URL } from "./npm-registry";
 
 export const RegistryDownloads = z.object({
 	// Total number of downloads.
@@ -18,20 +15,3 @@ export const RegistryDownloads = z.object({
  * @see {@link https://github.com/npm/registry/blob/master/docs/download-counts.md#point-values}
  */
 export type RegistryDownloads = z.infer<typeof RegistryDownloads>;
-
-/**
- * `getRegistryDownloads` returns the total number of downloads
- * for all packages in the registry in the given time period.
- *
- * @param period - {@link DownloadPeriod | time period} in which downloads happened; the npm registry limits data to the last 18 months
- * @param registry - URL of the registry downloads API (default: npm registry downloads API)
- *
- * @see {@link RegistryDownloads}
- */
-export async function getRegistryDownloads(
-	period: DownloadPeriod,
-	registry = NPM_REGISTRY_DOWNLOADS_API_URL,
-): Promise<RegistryDownloads> {
-	const url = new URL(`/downloads/point/${period}`, registry);
-	return fetchData(RegistryDownloads, url.toString());
-}

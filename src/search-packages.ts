@@ -1,7 +1,5 @@
 import { z } from "zod";
 import { PackageJson } from "zod-package-json";
-import { fetchData } from "./fetch-data";
-import { NPM_REGISTRY_API_URL } from "./npm-registry";
 
 export const SearchCriteria = z.object({
 	/**
@@ -134,23 +132,3 @@ export const SearchResults = z.object({
  * @see {@link https://github.com/npm/registry/blob/master/docs/REGISTRY-API.md#get-v1search}
  */
 export type SearchResults = z.infer<typeof SearchResults>;
-
-/**
- * `searchPackages` returns the packages corresponding to a given query.
- *
- * @param criteria - one or more search criteria
- * @param registry - URL of the registry (default: npm registry)
- *
- * @see {@link SearchCriteria}
- * @see {@link SearchResults}
- */
-export async function searchPackages(
-	criteria: SearchCriteria,
-	registry = NPM_REGISTRY_API_URL,
-): Promise<SearchResults> {
-	const url = new URL("-/v1/search", registry);
-	for (const [key, value] of Object.entries(criteria)) {
-		url.searchParams.set(key, value.toString());
-	}
-	return fetchData(SearchResults, url.toString());
-}
