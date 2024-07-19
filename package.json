@@ -9,10 +9,10 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/atahanyorganci/npm-registry.git"
+		"url": "https://github.com/atahanyorganci/npm-registry-api.git"
 	},
 	"bugs": {
-		"url": "https://github.com/atahanyorganci/npm-registry/issues"
+		"url": "https://github.com/atahanyorganci/npm-registry-api/issues"
 	},
 	"keywords": [
 		"query",
