@@ -1,6 +1,6 @@
 {
 	"name": "@yorganci/npm-registry-api",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"description": "Query the npm registry for packuments, manifests, packages and download counts",
 	"license": "MIT",
 	"author": {
