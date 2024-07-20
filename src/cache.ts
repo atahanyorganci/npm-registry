@@ -43,7 +43,7 @@ export interface CreateCacheOptions {
 	// used to create keys for `storage`
 	serialize: Cache["serialize"];
 	// `unstorage` driver used to persist keys
-	storage: Driver;
+	driver: Driver;
 }
 
 /**
@@ -61,7 +61,7 @@ export const serialize: Cache["serialize"] = (object: unknown) => sha256base64(o
  * {@link memoryDriver | `memoryDriver`} from {@link https://github.com/unjs/unstorage | `unstorage`} is used for persistance. Serialization and
  * persistance method can be customized.
  */
-export function createCache({ storage: driver, ...opts }: Partial<CreateCacheOptions> = {}): Cache {
+export function createCache({ driver, ...opts }: Partial<CreateCacheOptions> = {}): Cache {
 	return {
 		serialize,
 		storage: createStorage({
