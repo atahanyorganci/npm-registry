@@ -1,6 +1,9 @@
 format:
     bun run format
 
+lint:
+    bun run lint
+
 check:
     bun run check
 
@@ -13,7 +16,7 @@ build:
 attw:
     bun run attw
 
-release: format check test build
+release: format lint check test build
     bun run release
 
 update-test-data:
