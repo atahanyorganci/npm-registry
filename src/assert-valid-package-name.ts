@@ -76,6 +76,18 @@ export const nodeBuiltinModules = [
 
 export const blacklistedNames = ["node_modules", "favicon.ico"];
 
+/**
+ * `LegacyPackageName` represent's npm's legacy package naming convention.
+ *
+ * - Package name cannot be empty
+ * - Package name cannot start with a leading period.
+ * - Package name cannot start with a leading underscore.
+ * - Package name cannot contain leading or trailing spaces.
+ * - Package name cannot be node_modules or favicon.ico.
+ * - Package name can only contain URL-friendly characters.
+ *
+ * @see {@link https://github.com/npm/validate-npm-package-name | `validate-npm-package-name`} package from npm
+ */
 export const LegacyPackageName = z
 	.string()
 	.min(1, "Package name cannot be empty.")
@@ -101,10 +113,26 @@ export const LegacyPackageName = z
 		return true;
 	}, "Package name can only contain URL-friendly characters.");
 
+/**
+ * Assert `name` conforms to npm's legacy package naming convention.
+ *
+ * @param name name to test
+ */
 export function assertValidPackageName(name: unknown) {
 	LegacyPackageName.parse(name);
 }
 
+/**
+ * `PackageName` represent's npm's current package naming convention. It adheres
+ * to old naming convention with additional rules.
+ *
+ * - Package name cannot be the same as a Node.js core module.
+ * - Package name cannot be longer than 214 characters.
+ * - Package name should be lower case.
+ * - Package name cannot container special characters.
+ *
+ * @see {@link https://github.com/npm/validate-npm-package-name | `validate-npm-package-name`} package from npm
+ */
 export const PackageName = LegacyPackageName.refine(
 	name => !nodeBuiltinModules.includes(name.toLowerCase()),
 	"Package name cannot be the same as a Node.js core module.",
@@ -116,6 +144,11 @@ export const PackageName = LegacyPackageName.refine(
 		"Package name cannot container special characters.",
 	);
 
+/**
+ * Assert `name` conforms to npm's current package naming convention.
+ *
+ * @param name name to test
+ */
 export function assertStrictPackageName(name: unknown) {
 	PackageName.parse(name);
 }

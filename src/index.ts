@@ -1,12 +1,13 @@
 /**
- * `query-registry` is an API wrapper for the {@link https://github.com/npm/registry/blob/master/docs/REGISTRY-API.md | npm registry API}.
+ * `@yorganci/npm-registry-api` is a fully typesafe [npm registry API](https://github.com/npm/registry/blob/master/docs/REGISTRY-API.md) client with optional caching.
  *
  * @example
  * Get the metadata about the npm registry itself, if available:
  *
  * ```typescript
- * import { getRegistryMetadata } from "query-registry";
+ * import { Client } from "@yorganci/npm-registry-api";
  *
+ * const client = new Client();
  * const metadata = await getRegistryMetadata();
  * ```
  *
@@ -14,86 +15,117 @@
  * Get the public signing keys for the npm registry:
  *
  * ```typescript
- * import { getRegistrySigningKeys } from "query-registry";
+ * import { Client } from "@yorganci/npm-registry-api";
  *
- * const { keys } = await getRegistrySigningKeys();
+ * const client = new Client();
+ * const { keys } = await client.getRegistrySigningKeys();
  * ```
  *
  * @example
  * Get the abbreviated packument containing only the necessary data to install the `react` package:
  *
  * ```typescript
- * import { getAbbreviatedPackument } from "query-registry";
+ * import { Client } from "@yorganci/npm-registry-api";
  *
- * const abbrPackument = await getAbbreviatedPackument("react");
+ * const client = new Client();
+ * const abbrPackument = await client.getAbbreviatedPackument("react");
  * ```
  *
  * @example
  * Get the full packument containing all the data available about the `react` package:
  *
  * ```typescript
- * import { getPackument } from "query-registry";
+ * import { Client } from "@yorganci/npm-registry-api";
  *
- * const packument = await getPackument("react");
+ * const client = new Client();
+ * const packument = await client.getPackument("react");
  * ```
  *
  * @example
  * Get the manifest containing the original `package.json` data plus additional registry metadata for the `latest` version of the `react` package:
  *
  * ```typescript
- * import { getPackageManifest } from "query-registry";
  *
- * const manifest = await getPackageManifest("react");
+ * import { Client } from "@yorganci/npm-registry-api";
+ *
+ * const client = new Client();
+ * const manifest = await client.getPackageManifest("react");
  * ```
  *
  * @example
  * Get the manifest for `react@18.2.0` (semver version):
  *
  * ```typescript
- * import { getPackageManifest } from "query-registry";
+ * import { Client } from "@yorganci/npm-registry-api";
  *
- * const manifest = await getPackageManifest("react", "18.2.0");
+ * const client = new Client();
+ * const manifest = await client.getPackageManifest("react", "18.2.0");
  * ```
  *
  * @example
  * Get the manifest for `react@next` (distribution tag):
  *
  * ```typescript
- * import { getPackageManifest } from "query-registry";
+ * import { Client } from "@yorganci/npm-registry-api";
  *
- * const manifest = await getPackageManifest("react", "next");
+ * const client = new Client();
+ * const manifest = await client.getPackageManifest("react", "next");
  * ```
  *
  * @example
  * Search packages related to `react` (e.g., `react`, `react-dom`, ...):
  *
  * ```typescript
- * import { searchPackages } from "query-registry";
+ * import { Client } from "@yorganci/npm-registry-api";
  *
- * const results = await searchPackages({ text: "react" });
+ * const client = new Client();
+ * const results = await client.searchPackages({ text: "react" });
  * ```
  *
  * @example
  * Get the total number of downloads for package `react` for the last month:
  *
  * ```typescript
- * import { getPackageDownloads } from "query-registry";
+ * import { Client } from "@yorganci/npm-registry-api";
  *
- * const { downloads } = await getPackageDownloads("react", "last-month");
+ * const client = new Client();
+ * const { downloads } = await client.getPackageDownloads("react", "last-month");
  * ```
  *
  * There are also these other download counts functions available: `getBulkDailyPackageDownloads`, `getBulkPackageDownloads`, `getDailyPackageDownloads`, `getDailyRegistryDownloads` and `getPackageVersionsDownloads`.
  *
  * @example
- * Clear the internal cache.
+ * Create a cached client, by default an in-memory cache is used.
  *
  * ```typescript
- * import { cache } from "query-registry";
+ * import { Client } from "@yorganci/npm-registry-api";
+ * import { createCache } from "@yorganci/npm-registry-api/cache";
  *
- * cache.clear();
+ * // By default `Map<string, unknown>` is used as caching layer
+ * const cachedClient = new Client({
+ * 	cache: createCache(),
+ * });
  * ```
  *
- * See the {@link https://www.npmjs.com/package/quick-lru | quick-lru} package for the cache API.
+ * @example
+ * Create a file-system backed cache client.
+ *
+ * ```ts
+ * import { Client } from "@yorganci/npm-registry-api";
+ * import { createCache } from "@yorganci/npm-registry-api/cache";
+ * import fs from "unstorage/drivers/fs";
+ *
+ * // By default `Map<string, unknown>` is used as caching layer
+ * const cachedClient = new Client({
+ * 	cache: createCache({
+ * 		storage: fs({
+ * 			base: "./data",
+ * 		}),
+ * 	}),
+ * });
+ * ```
+ *
+ * See the {@link https://unstorage.unjs.io/drivers | `unstorage`} package for the cache API.
  *
  * @packageDocumentation
  */
@@ -151,6 +183,10 @@ export interface ClientOptions {
 	downloadsApiUrl: string;
 }
 
+/**
+ * [npm Registry API](https://github.com/npm/registry/blob/master/docs/REGISTRY-API.md) client with
+ * options to configure caching and registry endpoints.
+ */
 export class Client {
 	public readonly cache?: Cache;
 	public readonly registryApiUrl: string;
