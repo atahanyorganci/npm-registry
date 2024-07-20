@@ -1,5 +1,24 @@
 /**
- * `@yorganci/npm-registry-api` is a fully typesafe [npm registry API](https://github.com/npm/registry/blob/master/docs/REGISTRY-API.md) client with optional caching.
+ * # npm Registry API Client
+ *
+ * `@yorganci/npm-registry-api` is a fully typesafe [npm registry API][npm-registry-api] client with optional caching.
+ *
+ * ## Features
+ *
+ * - Validates registry responses using [`zod`](https://github.com/colinhacks/zod).
+ * - Supports response caching with [`unstorage`](https://github.com/unjs/unstorage).
+ * - Compatible with both Node.js and browser environments.
+ * - Works seamlessly with third-party npm-compatible registries.
+ *
+ * ## Useful Links
+ *
+ * - [npm registry API][npm-registry-api] for REST API docs.
+ * - [`ohash` docs](https://github.com/unjs/ohash) for serializing cache keys.
+ * - [`unstorage` drivers](https://unstorage.unjs.io/drivers) for caching layer.
+ *
+ * ## Usage
+ *
+ * ### npm Registry API
  *
  * @example
  * Get the metadata about the npm registry itself, if available:
@@ -94,39 +113,42 @@
  *
  * There are also these other download counts functions available: `getBulkDailyPackageDownloads`, `getBulkPackageDownloads`, `getDailyPackageDownloads`, `getDailyRegistryDownloads` and `getPackageVersionsDownloads`.
  *
- * @example
- * Create a cached client, by default an in-memory cache is used.
+ * ## Caching API
  *
- * ```typescript
+ * `@yorganci/npm-registry-api/cache` module provides basic factory function to create `Cache` object to be used by `Client`.
+ * By default `createCache`, uses `ohash` under the hood to generate cache keys from URL and HTTP headers and any `Driver`
+ * implementation from `unstorage` can be used for persistance the default is `unstorage/drivers/memory`.
+ *
+ * @example
+ * Basic usage with default driver.
+ *
+ * ```ts
  * import { Client } from "@yorganci/npm-registry-api";
  * import { createCache } from "@yorganci/npm-registry-api/cache";
  *
  * // By default `Map<string, unknown>` is used as caching layer
  * const cachedClient = new Client({
- * 	cache: createCache(),
+ *   cache: createCache(),
  * });
  * ```
  *
  * @example
- * Create a file-system backed cache client.
+ * Usage with `fsDriver` from `unstorage`.
  *
  * ```ts
  * import { Client } from "@yorganci/npm-registry-api";
  * import { createCache } from "@yorganci/npm-registry-api/cache";
  * import fs from "unstorage/drivers/fs";
  *
- * // By default `Map<string, unknown>` is used as caching layer
  * const cachedClient = new Client({
- * 	cache: createCache({
- * 		storage: fs({
- * 			base: "./data",
- * 		}),
- * 	}),
+ *   cache: createCache({
+ *     storage: fs({
+ *       base: "./data",
+ *     }),
+ *   }),
  * });
- * ```
  *
- * See the {@link https://unstorage.unjs.io/drivers | `unstorage`} package for the cache API.
- *
+ * @see {@link https://unstorage.unjs.io/drivers | `unstorage`} drivers for the cache API.
  * @module
  */
 export { PackageJson } from "zod-package-json";
@@ -172,8 +194,18 @@ import { RegistrySigningKeys } from "./get-registry-signing-keys";
 import { NPM_REGISTRY_API_URL, NPM_REGISTRY_DOWNLOADS_API_URL } from "./npm-registry";
 import { type SearchCriteria, SearchResults } from "./search-packages";
 
+/**
+ * {@link Client `Client`} uses `Cache` instance as a read-through cache first URL and
+ * HTTP headers are checked in `Cache.storage`, if the resource is in the cache no request
+ * is sent. Otherwise, resource is fetched and persisted on the cache.
+ */
 export interface Cache {
+	// Function to use when serializing request URL and headers.
 	serialize: (object: unknown) => string;
+	/**
+	 * {@link Storage `Storage`} instance from {@link https://unstorage.unjs.io/guide | `unstorage`} used for
+	 * persisting resources.
+	 */
 	storage: Storage;
 }
 
