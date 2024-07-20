@@ -16,8 +16,8 @@ build:
 attw:
     bun run attw
 
-release: format lint check test build
-    bun run release
+pre-publish: format lint check test build attw
+    @echo "Ready for publishing"
 
 update-test-data:
     REMOTE=true PERSIST=true bun run test
