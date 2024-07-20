@@ -67,6 +67,8 @@ await client.searchPackages({ text: "react", size: 1 });
 
 `@yorganci/npm-registry-api/cache` module provides basic factory function to create `Cache` object to be used by `Client`. By default `createCache`, uses `ohash` under the hood to generate cache keys from URL and HTTP headers and any `Driver` implementation from `unstorage` can be used for persistance the default is `unstorage/drivers/memory`.
 
+Basic usage with default options.
+
 ```ts
 import { Client } from "@yorganci/npm-registry-api";
 import { createCache } from "@yorganci/npm-registry-api/cache";
@@ -77,12 +79,13 @@ const cachedClient = new Client({
 });
 ```
 
+Create a file-system backed cache client.
+
 ```ts
 import { Client } from "@yorganci/npm-registry-api";
 import { createCache } from "@yorganci/npm-registry-api/cache";
 import fs from "unstorage/drivers/fs";
 
-// By default `Map<string, unknown>` is used as caching layer
 const cachedClient = new Client({
   cache: createCache({
     storage: fs({
@@ -105,16 +108,16 @@ const cachedClient = new Client({
 [license-src]: https://img.shields.io/github/license/atahanyorganci/npm-registry-api.svg?style=for-the-badge
 [license-href]: https://github.com/atahanyorganci/npm-registry-api/blob/main/LICENSE
 [npm-registry-api]: https://github.com/npm/registry/blob/master/docs/REGISTRY-API.md
-[get-abbreviated-packument]: https://github.com/atahanyorganci/npm-registry-api/blob/main/src/get-abbreviated-packument.ts
-[get-bulk-daily-package-downloads]: https://github.com/atahanyorganci/npm-registry-api/blob/main/src/get-bulk-daily-package-downloads.ts
-[get-bulk-package-downloads]: https://github.com/atahanyorganci/npm-registry-api/blob/main/src/get-bulk-package-downloads.ts
-[get-daily-package-downloads]: https://github.com/atahanyorganci/npm-registry-api/blob/main/src/get-daily-package-downloads.ts
-[get-daily-registry-downloads]: https://github.com/atahanyorganci/npm-registry-api/blob/main/src/get-daily-registry-downloads.ts
-[get-package-downloads]: https://github.com/atahanyorganci/npm-registry-api/blob/main/src/get-package-downloads.ts
-[get-package-manifest]: https://github.com/atahanyorganci/npm-registry-api/blob/main/src/get-package-manifest.ts
-[get-package-versions-downloads]: https://github.com/atahanyorganci/npm-registry-api/blob/main/src/get-package-versions-downloads.ts
-[get-packument]: https://github.com/atahanyorganci/npm-registry-api/blob/main/src/get-packument.ts
-[get-registry-downloads]: https://github.com/atahanyorganci/npm-registry-api/blob/main/src/get-registry-downloads.ts
-[get-registry-metadata]: https://github.com/atahanyorganci/npm-registry-api/blob/main/src/get-registry-metadata.ts
-[get-registry-signing-keys]: https://github.com/atahanyorganci/npm-registry-api/blob/main/src/get-registry-signing-keys.ts
-[search-packages]: https://github.com/atahanyorganci/npm-registry-api/blob/main/src/search-packages.ts
+[get-abbreviated-packument]: https://jsr.io/@yorganci/npm-registry-api/doc/~/Client.prototype.getBulkDailyPackageDownloads
+[get-bulk-daily-package-downloads]: https://jsr.io/@yorganci/npm-registry-api/doc/~/Client.prototype.getBulkDailyPackageDownloads
+[get-bulk-package-downloads]: https://jsr.io/@yorganci/npm-registry-api/doc/~/Client.prototype.getBulkPackageDownloads
+[get-daily-package-downloads]: https://jsr.io/@yorganci/npm-registry-api/doc/~/Client.prototype.getDailyPackageDownloads
+[get-daily-registry-downloads]: https://jsr.io/@yorganci/npm-registry-api/doc/~/Client.prototype.getDailyRegistryDownloads
+[get-package-downloads]: https://jsr.io/@yorganci/npm-registry-api/doc/~/Client.prototype.getPackageDownloads
+[get-package-manifest]: https://jsr.io/@yorganci/npm-registry-api/doc/~/Client.prototype.getPackageManifest
+[get-package-versions-downloads]: https://jsr.io/@yorganci/npm-registry-api/doc/~/Client.prototype.getPackageVersionsDownloads
+[get-packument]: https://jsr.io/@yorganci/npm-registry-api/doc/~/Client.prototype.getPackument
+[get-registry-downloads]: https://jsr.io/@yorganci/npm-registry-api/doc/~/Client.prototype.getRegistryDownloads
+[get-registry-metadata]: https://jsr.io/@yorganci/npm-registry-api/doc/~/Client.prototype.getRegistryMetadata
+[get-registry-signing-keys]: https://jsr.io/@yorganci/npm-registry-api/doc/~/Client.prototype.getRegistrySigningKeys
+[search-packages]: https://jsr.io/@yorganci/npm-registry-api/doc/~/Client.prototype.searchPackages
