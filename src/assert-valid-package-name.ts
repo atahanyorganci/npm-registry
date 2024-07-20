@@ -76,12 +76,12 @@ export const nodeBuiltinModules = [
 
 export const blacklistedNames = ["node_modules", "favicon.ico"];
 
-export const NpmPackageName = z
+export const LegacyPackageName = z
 	.string()
-	.min(1)
+	.min(1, "Package name cannot be empty.")
 	.refine(name => !name.match(/^\./), "Package name cannot start with a leading period.")
 	.refine(name => !name.match(/^_/), "Package name cannot start with a leading underscore.")
-	.refine(name => name.trim() === name, "Package cannot contain leading or trailing spaces.")
+	.refine(name => name.trim() === name, "Package name cannot contain leading or trailing spaces.")
 	.refine(
 		name => !blacklistedNames.includes(name.toLowerCase()),
 		"Package name cannot be node_modules or favicon.ico.",
@@ -102,12 +102,12 @@ export const NpmPackageName = z
 	}, "Package name can only contain URL-friendly characters.");
 
 export function assertValidPackageName(name: unknown) {
-	NpmPackageName.parse(name);
+	LegacyPackageName.parse(name);
 }
 
-export const StrictNpmPackageName = NpmPackageName.refine(
+export const PackageName = LegacyPackageName.refine(
 	name => !nodeBuiltinModules.includes(name.toLowerCase()),
-	"Package name cannot be node_modules or favicon.ico.",
+	"Package name cannot be the same as a Node.js core module.",
 )
 	.refine(name => name.length <= 214, "Package name cannot be longer than 214 characters.")
 	.refine(name => name === name.toLowerCase(), "Package name should be lower case.")
@@ -117,5 +117,5 @@ export const StrictNpmPackageName = NpmPackageName.refine(
 	);
 
 export function assertStrictPackageName(name: unknown) {
-	StrictNpmPackageName.parse(name);
+	PackageName.parse(name);
 }

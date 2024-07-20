@@ -98,6 +98,12 @@
  * @packageDocumentation
  */
 export { PackageJson } from "zod-package-json";
+export {
+	LegacyPackageName,
+	PackageName,
+	assertStrictPackageName,
+	assertValidPackageName,
+} from "./assert-valid-package-name";
 export { DownloadPeriod } from "./download-period";
 export { AbbreviatedPackument } from "./get-abbreviated-packument";
 export { BulkDailyPackageDownloads } from "./get-bulk-daily-package-downloads";
