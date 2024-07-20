@@ -16,9 +16,7 @@
  * - [`ohash` docs](https://github.com/unjs/ohash) for serializing cache keys.
  * - [`unstorage` drivers](https://unstorage.unjs.io/drivers) for caching layer.
  *
- * ## Usage
- *
- * ### npm Registry API
+ * ## npm Registry API
  *
  * @example
  * Get the metadata about the npm registry itself, if available:
