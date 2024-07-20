@@ -1,6 +1,6 @@
 {
 	"name": "@yorganci/npm-registry-api",
-	"version": "0.1.3",
+	"version": "0.2.0",
 	"description": "Fully typesafe npm registry API client with optional caching.",
 	"license": "MIT",
 	"author": {
