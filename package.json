@@ -1,7 +1,7 @@
 {
 	"name": "@yorganci/npm-registry-api",
 	"version": "0.0.2",
-	"description": "Query the npm registry for packuments, manifests, packages and download counts",
+	"description": "Fully typesafe npm registry API client with optional caching.",
 	"license": "MIT",
 	"author": {
 		"name": "Atahan Yorganci",
@@ -49,18 +49,18 @@
 		"node": ">=20"
 	},
 	"scripts": {
-		"check": "tsc",
-		"check:watch": "tsc --watch",
-		"lint": "biome check .",
-		"lint:write": "biome check --write .",
-		"format": "biome format .",
-		"format:write": "biome format --write .",
-		"test": "vitest run",
-		"test:watch": "vitest watch",
-		"test:ci": "vitest run --coverage --bail 1",
 		"attw": "attw --pack .",
 		"build": "unbuild",
-		"release": "np --no-cleanup"
+		"check": "tsc",
+		"check:watch": "tsc --watch",
+		"format": "biome format .",
+		"format:write": "biome format --write .",
+		"lint": "biome check .",
+		"lint:write": "biome check --write .",
+		"release": "np --no-cleanup",
+		"test": "vitest run",
+		"test:watch": "vitest watch",
+		"test:ci": "vitest run --coverage --bail 1"
 	},
 	"dependencies": {
 		"ofetch": "^1.3.4",
