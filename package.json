@@ -15,17 +15,16 @@
 		"url": "https://github.com/atahanyorganci/npm-registry-api/issues"
 	},
 	"keywords": [
-		"query",
-		"registry",
 		"npm",
-		"client",
-		"api",
+		"registry",
+		"typescript",
+		"isomorphic-fetch",
+		"npm-registry",
+		"npm-search",
+		"npm-downloads",
 		"packument",
-		"package",
-		"downloads",
-		"search",
-		"manifest",
-		"typescript"
+		"npm-registry-api",
+		"zod-validation "
 	],
 	"sideEffects": false,
 	"type": "module",
