@@ -1,4 +1,4 @@
-# npm Registry Client
+# npm Registry API Client
 
 [![npm version][npm-version-src]][npm-version-href]
 [![npm downloads][npm-downloads-src]][npm-downloads-href]
@@ -73,7 +73,7 @@ import { createCache } from "@yorganci/npm-registry-api/cache";
 
 // By default `Map<string, unknown>` is used as caching layer
 const cachedClient = new Client({
-	cache: createCache(),
+  cache: createCache(),
 });
 ```
 
@@ -84,11 +84,11 @@ import fs from "unstorage/drivers/fs";
 
 // By default `Map<string, unknown>` is used as caching layer
 const cachedClient = new Client({
-	cache: createCache({
-		storage: fs({
-			base: "./data",
-		}),
-	}),
+  cache: createCache({
+    storage: fs({
+      base: "./data",
+    }),
+  }),
 });
 ```
 
