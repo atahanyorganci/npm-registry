@@ -32,7 +32,7 @@ is-clean:
     fi
 
 [confirm("Are you sure you want to publish new version of the package?")]
-@publish NEW_VERSION: is-clean
+@publish NEW_VERSION: is-clean pre-publish
     echo "Updating {{ name }} from v{{ version }} to v{{ NEW_VERSION }}"
     sed -i 's/"version": "{{ version }}"/"version": "{{ NEW_VERSION }}"/g' package.json jsr.json
     git add package.json jsr.json
