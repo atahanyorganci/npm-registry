@@ -127,7 +127,7 @@
  *
  * See the {@link https://unstorage.unjs.io/drivers | `unstorage`} package for the cache API.
  *
- * @packageDocumentation
+ * @module
  */
 export { PackageJson } from "zod-package-json";
 export {
@@ -192,12 +192,26 @@ export class Client {
 	public readonly registryApiUrl: string;
 	public readonly downloadsApiUrl: string;
 
+	/**
+	 * Client options to configure caching and registry API endpoints.
+	 *
+	 * @param options {@link ClientOptions}
+	 */
 	constructor({ cache, registryApiUrl, downloadsApiUrl }: Partial<ClientOptions> = {}) {
 		this.cache = cache;
 		this.registryApiUrl = registryApiUrl ?? NPM_REGISTRY_API_URL;
 		this.downloadsApiUrl = downloadsApiUrl ?? NPM_REGISTRY_DOWNLOADS_API_URL;
 	}
 
+	/**
+	 * Performs fetch with `ofetch` to be compatible with both server and browser runtimes.
+	 * If caching is enabled then, first cache is checked for response before any HTTP request
+	 * is made. Responses are automatically cached.
+	 *
+	 * @param schema {@link z} schema to validate response with
+	 * @param url fully qualified URL to fetch resources form
+	 * @param headers HTTP headers for the request
+	 */
 	async fetch<T extends z.Schema>(
 		schema: T,
 		url: string,
