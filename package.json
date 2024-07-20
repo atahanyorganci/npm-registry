@@ -46,7 +46,7 @@
 	"types": "./dist/index.d.ts",
 	"files": ["dist"],
 	"scripts": {
-		"attw": "attw --pack .",
+		"attw": "attw --pack . --ignore-rules no-resolution",
 		"build": "unbuild",
 		"check": "tsc",
 		"check:watch": "tsc --watch",
