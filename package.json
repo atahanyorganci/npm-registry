@@ -45,9 +45,6 @@
 	"main": "./dist/index.cjs",
 	"types": "./dist/index.d.ts",
 	"files": ["dist"],
-	"engines": {
-		"node": ">=20"
-	},
 	"scripts": {
 		"attw": "attw --pack .",
 		"build": "unbuild",
