@@ -19,6 +19,9 @@ build:
 attw:
     bun run attw
 
+api-extractor:
+    bunx api-extractor run --local --verbose
+
 ci: format lint check test build attw
 
 [private]
