@@ -19,8 +19,7 @@ build:
 attw:
     bun run attw
 
-@pre-publish: format lint check test build attw
-    echo "Ready for publishing"
+ci: format lint check test build attw
 
 [private]
 is-clean:
@@ -32,7 +31,7 @@ is-clean:
     fi
 
 [confirm("Are you sure you want to publish new version of the package?")]
-@publish NEW_VERSION: is-clean pre-publish
+@publish NEW_VERSION: is-clean ci
     echo "Updating {{ name }} from v{{ version }} to v{{ NEW_VERSION }}"
     sed -i 's/"version": "{{ version }}"/"version": "{{ NEW_VERSION }}"/g' package.json jsr.json
     git add package.json jsr.json
