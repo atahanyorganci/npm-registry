@@ -3,7 +3,7 @@ import { z } from "zod";
 /**
  * Builtin modules for Node.js
  */
-export const nodeBuiltinModules = [
+const nodeBuiltinModules = [
 	"_http_agent",
 	"_http_client",
 	"_http_common",
@@ -74,7 +74,7 @@ export const nodeBuiltinModules = [
 	"zlib",
 ];
 
-export const blacklistedNames = ["node_modules", "favicon.ico"];
+const blacklistedNames = ["node_modules", "favicon.ico"];
 
 /**
  * `LegacyPackageName` represent's npm's legacy package naming convention.
