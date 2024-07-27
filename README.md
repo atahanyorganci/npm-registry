@@ -104,7 +104,7 @@ const cachedClient = new Client({
 [npm-downloads-src]: https://img.shields.io/npm/dm/@yorganci/npm-registry-api?style=for-the-badge&logo=npm
 [npm-downloads-href]: https://npmjs.com/package/@yorganci/npm-registry-api
 [bundle-src]: https://img.shields.io/bundlephobia/minzip/@yorganci/npm-registry-api?style=for-the-badge
-[bundle-href]: https://bundlephobia.com/result?p=@yorganci/npm-registry-api
+[bundle-href]: https://bundlephobia.com/result?p=%40yorganci%npm-registry-api
 [license-src]: https://img.shields.io/github/license/atahanyorganci/npm-registry-api.svg?style=for-the-badge
 [license-href]: https://github.com/atahanyorganci/npm-registry-api/blob/main/LICENSE
 [npm-registry-api]: https://github.com/npm/registry/blob/master/docs/REGISTRY-API.md
