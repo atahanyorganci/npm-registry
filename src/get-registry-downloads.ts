@@ -1,5 +1,6 @@
 import { z } from "zod";
 
+/** @public */
 export const RegistryDownloads = z.object({
 	// Total number of downloads.
 	downloads: z.number(),
@@ -13,5 +14,6 @@ export const RegistryDownloads = z.object({
  * `RegistryDownloads` describes the total number of downloads
  * for all packages in the registry in a given time period.
  * @see {@link https://github.com/npm/registry/blob/master/docs/download-counts.md#point-values}
+ * @public
  */
 export type RegistryDownloads = z.infer<typeof RegistryDownloads>;

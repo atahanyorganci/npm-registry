@@ -1,5 +1,6 @@
 import { z } from "zod";
 
+/** @public */
 export const RegistryMetadata = z.object({
 	// Database name, usually `registry`
 	db_name: z.string().optional(),
@@ -27,8 +28,10 @@ export const RegistryMetadata = z.object({
 
 /**
  * `RegistryMetadata` describes the metadata describing the registry itself.
+ *
  * @see {@link https://github.com/npm/registry/blob/master/docs/REGISTRY-API.md#registry}
  * @see {@link https://github.com/npm/registry/blob/master/docs/REGISTRY-API.md#get}
  * @see {@link https://docs.couchdb.org/en/stable/api/database/common.html}
+ * @public
  */
 export type RegistryMetadata = z.infer<typeof RegistryMetadata>;

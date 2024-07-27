@@ -2,6 +2,7 @@ import { z } from "zod";
 import { DistTags } from "./dist-tags";
 import { PackageManifest } from "./get-package-manifest";
 
+/** @public */
 export const AbbreviatedPackument = z.object({
 	// Package name.
 	name: z.string(),
@@ -37,7 +38,9 @@ export const AbbreviatedPackument = z.object({
 });
 
 /**
- *`AbbreviatedPackument` (package document) describes the minimal metadata needed for installing a package.
- *@see {@link https://github.com/npm/registry/blob/master/docs/responses/package-metadata.md#abbreviated-metadata-format}
+ * `AbbreviatedPackument` (package document) describes the minimal metadata needed for installing a package.
+ *
+ * @see {@link https://github.com/npm/registry/blob/master/docs/responses/package-metadata.md#abbreviated-metadata-format}
+ * @public
  */
 export type AbbreviatedPackument = z.infer<typeof AbbreviatedPackument>;

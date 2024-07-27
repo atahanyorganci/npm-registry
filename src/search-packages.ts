@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { PackageJson } from "zod-package-json";
 
+/** @public */
 export const SearchCriteria = z.object({
 	/**
 	 * Query text.
@@ -31,7 +32,9 @@ export const SearchCriteria = z.object({
 
 /**
  * `SearchCriteria` describes the available search criteria for searching packages.
+ *
  * @see {@link https://github.com/npm/registry/blob/master/docs/REGISTRY-API.md#get-v1search}
+ * @public
  */
 export type SearchCriteria = z.infer<typeof SearchCriteria>;
 
@@ -44,8 +47,8 @@ const SearchResult = z.object({
 		keywords: true,
 	}).extend({
 		/**
-		 * Either `unscoped` for unscoped packages (e.g., `foo` -> `unscoped`) or
-		 * the package's scope for scoped packages (e.g., `@foo/bar` -> `foo`).
+		 * Either `unscoped` for unscoped packages (e.g., `foo`) or
+		 * the package's scope for scoped packages (e.g., `@foo/bar` scope `foo` package name `bar`).
 		 */
 		scope: z.string(),
 		/**
@@ -116,6 +119,7 @@ const SearchResult = z.object({
 		.optional(),
 });
 
+/** @public */
 export const SearchResults = z.object({
 	objects: z.array(SearchResult),
 	/**
@@ -129,6 +133,8 @@ export const SearchResults = z.object({
 
 /**
  * `SearchResults` describes the results returned by the registry for a search query.
+ *
  * @see {@link https://github.com/npm/registry/blob/master/docs/REGISTRY-API.md#get-v1search}
+ * @public
  */
 export type SearchResults = z.infer<typeof SearchResults>;

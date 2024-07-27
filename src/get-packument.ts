@@ -12,6 +12,7 @@ const Time = z
 	})
 	.catchall(z.string());
 
+/** @public */
 export const Packument = PackageJson.pick({
 	author: true,
 	bugs: true,
@@ -52,8 +53,10 @@ export const Packument = PackageJson.pick({
 
 /**
  * `Packument` (package document) describes the full metadata available about a package.
+ *
  * @see {@link https://github.com/npm/registry/blob/master/docs/REGISTRY-API.md#getpackage}
  * @see {@link https://github.com/npm/registry/blob/master/docs/responses/package-metadata.md#full-metadata-format}
  * @see {@link https://github.com/npm/registry/blob/master/docs/REGISTRY-API.md#package}
+ * @public
  */
 export type Packument = z.infer<typeof Packument>;

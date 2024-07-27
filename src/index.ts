@@ -193,20 +193,25 @@ import { NPM_REGISTRY_API_URL, NPM_REGISTRY_DOWNLOADS_API_URL } from "./npm-regi
 import { type SearchCriteria, SearchResults } from "./search-packages";
 
 /**
- * {@link Client `Client`} uses `Cache` instance as a read-through cache first URL and
+ * {@link Client | `Client`} uses `Cache` instance as a read-through cache first URL and
  * HTTP headers are checked in `Cache.storage`, if the resource is in the cache no request
  * is sent. Otherwise, resource is fetched and persisted on the cache.
+ * @public
  */
 export interface Cache {
 	// Function to use when serializing request URL and headers.
 	serialize: (object: unknown) => string;
 	/**
-	 * {@link Storage `Storage`} instance from {@link https://unstorage.unjs.io/guide | `unstorage`} used for
+	 * {@link Storage | `Storage`} instance from {@link https://unstorage.unjs.io/guide | `unstorage`} used for
 	 * persisting resources.
 	 */
 	storage: Storage;
 }
 
+/**
+ * {@link Client | `Client`} options to configure caching and registry endpoints.
+ * @public
+ */
 export interface ClientOptions {
 	cache: Cache;
 	registryApiUrl: string;
@@ -216,6 +221,7 @@ export interface ClientOptions {
 /**
  * [npm Registry API](https://github.com/npm/registry/blob/master/docs/REGISTRY-API.md) client with
  * options to configure caching and registry endpoints.
+ * @public
  */
 export class Client {
 	public readonly cache?: Cache;
@@ -225,7 +231,7 @@ export class Client {
 	/**
 	 * Client options to configure caching and registry API endpoints.
 	 *
-	 * @param options {@link ClientOptions}
+	 * @param options - {@link ClientOptions}
 	 */
 	constructor({ cache, registryApiUrl, downloadsApiUrl }: Partial<ClientOptions> = {}) {
 		this.cache = cache;
@@ -238,9 +244,9 @@ export class Client {
 	 * If caching is enabled then, first cache is checked for response before any HTTP request
 	 * is made. Responses are automatically cached.
 	 *
-	 * @param schema {@link z} schema to validate response with
-	 * @param url fully qualified URL to fetch resources form
-	 * @param headers HTTP headers for the request
+	 * @param schema - {@link https://www.npmjs.com/package/zod | `zod`} to validate response with
+	 * @param url - fully qualified URL to fetch resources form
+	 * @param headers - HTTP headers for the request
 	 */
 	async fetch<T extends z.Schema>(
 		schema: T,
@@ -267,7 +273,7 @@ export class Client {
 	 * containing only the metadata necessary to install a package.
 	 *
 	 * @remarks
-	 * To get all the metadata (full packument) about a package see {@link getPackument}.
+	 * To get all the metadata (full packument) about a package see {@link Client.getPackument}.
 	 *
 	 * @param name - package name
 	 *
@@ -399,7 +405,7 @@ export class Client {
 	 *
 	 * @remarks
 	 * To get only the metadata needed to install a package (abbreviated packument)
-	 * see {@link getAbbreviatedPackument}.
+	 * see {@link Client.getAbbreviatedPackument}.
 	 *
 	 * @param name - package name
 	 *

@@ -87,6 +87,7 @@ const blacklistedNames = ["node_modules", "favicon.ico"];
  * - Package name can only contain URL-friendly characters.
  *
  * @see {@link https://github.com/npm/validate-npm-package-name | `validate-npm-package-name`} package from npm
+ * @public
  */
 export const LegacyPackageName = z
 	.string()
@@ -116,7 +117,8 @@ export const LegacyPackageName = z
 /**
  * Assert `name` conforms to npm's legacy package naming convention.
  *
- * @param name name to test
+ * @param name - name to test
+ * @public
  */
 export function assertValidPackageName(name: unknown) {
 	LegacyPackageName.parse(name);
@@ -132,6 +134,7 @@ export function assertValidPackageName(name: unknown) {
  * - Package name cannot container special characters.
  *
  * @see {@link https://github.com/npm/validate-npm-package-name | `validate-npm-package-name`} package from npm
+ * @public
  */
 export const PackageName = LegacyPackageName.refine(
 	name => !nodeBuiltinModules.includes(name.toLowerCase()),
@@ -147,7 +150,8 @@ export const PackageName = LegacyPackageName.refine(
 /**
  * Assert `name` conforms to npm's current package naming convention.
  *
- * @param name name to test
+ * @param name - name to test
+ * @public
  */
 export function assertStrictPackageName(name: unknown) {
 	PackageName.parse(name);

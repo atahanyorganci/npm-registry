@@ -1,5 +1,6 @@
 import { z } from "zod";
 
+/** @public */
 export const DownloadPeriod = z.union([
 	z.literal("last-day"),
 	z.literal("last-week"),
@@ -20,6 +21,7 @@ export const DownloadPeriod = z.union([
  * - `YYYY-MM-DD:YYYY-MM-DD` - Inclusive date range in the format `YYYY-MM-DD:YYYY-MM-DD`.
  *
  * @see {@link https://github.com/npm/registry/blob/master/docs/download-counts.md}
+ * @public
  */
 export type DownloadPeriod =
 	// Last day available, not necessarily yesterday.

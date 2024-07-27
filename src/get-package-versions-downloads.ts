@@ -1,5 +1,6 @@
 import { z } from "zod";
 
+/** @public */
 export const PackageVersionsDownloads = z.object({
 	// Package name.
 	package: z.string(),
@@ -10,6 +11,8 @@ export const PackageVersionsDownloads = z.object({
 /**
  * `PackageVersionsDownloads` describes the total number of downloads
  * for each version of a package in the previous 7 days.
+ *
  * @see {@link https://github.com/npm/registry/blob/master/docs/download-counts.md#per-version-download-counts}
+ * @public
  */
 export type PackageVersionsDownloads = z.infer<typeof PackageVersionsDownloads>;

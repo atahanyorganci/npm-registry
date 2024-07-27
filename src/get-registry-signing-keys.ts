@@ -1,5 +1,6 @@
 import { z } from "zod";
 
+/** @public */
 export const RegistrySigningKeys = z.object({
 	keys: z.array(
 		z.object({
@@ -19,6 +20,8 @@ export const RegistrySigningKeys = z.object({
 
 /**
  * `RegistrySigningKeys` describes the signing keys used by the registry.
+ *
  * @see {@link https://docs.npmjs.com/about-registry-signatures}
+ * @public
  */
 export type RegistrySigningKeys = z.infer<typeof RegistrySigningKeys>;
